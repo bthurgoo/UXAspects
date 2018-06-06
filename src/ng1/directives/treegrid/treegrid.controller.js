@@ -2,7 +2,7 @@ TreegridCtrl.$inject = ["$scope", "$q", "multipleSelectProvider", "$timeout"];
 
 export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeout) {
   var vm = this;
-  
+
   var treegridId = multipleSelectProvider.getNextComponentId();
 
   var defaultOptions = {
@@ -62,6 +62,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
 
   // Watch for changes to the tree data and update the view when it changes
   $scope.$watch('vm.data', function () {
+    vm.isAsync = angular.isFunction(vm.data);
     updateView();
   }, true);
 
@@ -74,6 +75,10 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
       }
       vm.selected = selected;
     }
+  }, true);
+
+  $scope.$watch("vm.options", function() {
+    vm.allOptions = angular.extend({}, defaultOptions, vm.options);
   }, true);
 
   // Event for reloading the grid to its initial state
@@ -109,7 +114,7 @@ export default function TreegridCtrl($scope, $q, multipleSelectProvider, $timeou
   };
 
   vm.checkboxClick = function (event) {
-    event.stopPropagation(); 
+    event.stopPropagation();
   };
 
   // Expand the specified row if possible. Returns true if the row is expandable.

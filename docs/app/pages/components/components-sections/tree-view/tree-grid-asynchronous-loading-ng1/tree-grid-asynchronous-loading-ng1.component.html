@@ -1,4 +1,24 @@
-<uxd-tree-grid-asynchronous-loading-wrapper></uxd-tree-grid-asynchronous-loading-wrapper>
+<!-- <uxd-tree-grid-asynchronous-loading-wrapper></uxd-tree-grid-asynchronous-loading-wrapper> -->
+
+<div class="m-b-md">
+    <button class="btn button-secondary m-r-xs" (click)="expandAllFolders()" [disabled]="inProgress">
+        <span class="hpe-icon hpe-down"></span> Expand All Folders
+    </button>
+    <button class="btn button-secondary m-r-xs" (click)="contractAllFolders()" [disabled]="inProgress">
+        <span class="hpe-icon hpe-next"></span> Contract All Folders
+    </button>
+    <button class="btn button-secondary m-r-xs" (click)="reloadAllFolders()" [disabled]="inProgress">
+        <span class="hpe-icon hpe-refresh"></span> Reload All Folders
+    </button>
+</div>
+
+<treegrid [data]="loadDataCallback"
+    [columns]="columns"
+    [(treeData)]="treeData"
+    [(selected)]="selected"
+    [options]="options"></treegrid>
+
+<p class="m-t-md">High priority: {{ selected | json }}</p>
 
 <hr>
 
